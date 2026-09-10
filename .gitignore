@@ -1,0 +1,27 @@
+﻿# Build outputs
+/build/
+**/build/
+*.bin
+*.hex
+*.elf
+*.map
+*.out
+
+# VS Code
+.vscode/
+
+# Local tool state
+.west/
+.cache/
+
+# Secrets and device credentials
+*.key
+*.pem
+*.crt
+*.csr
+*.p12
+*.pfx
+
+# OS files
+Thumbs.db
+.DS_Store

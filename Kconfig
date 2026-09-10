@@ -1,0 +1,81 @@
+source "Kconfig.zephyr"
+
+menu "Armfly Network Demo"
+
+config APP_MQTT_HOSTNAME
+	string "MQTT broker hostname"
+	default "test.mosquitto.org"
+
+config APP_MQTT_USE_TLS
+	bool "Enable MQTT over TLS"
+	default y
+
+config APP_MQTT_PORT
+	string "MQTT broker port"
+	default "8883" if APP_MQTT_USE_TLS
+	default "1883"
+
+config APP_MQTT_TOPIC
+	string "MQTT topic"
+	default "armfly/demo/ppp_tls"
+
+config APP_MQTT_CLIENT_ID_PREFIX
+	string "MQTT client ID prefix"
+	default "armfly-eg91xq"
+
+config APP_MQTT_LOOP_SECONDS
+	int "MQTT demo loop duration in seconds"
+	default 20
+	range 1 3600
+
+config APP_MQTT_PUBLISH_COUNT
+	int "MQTT demo publish count per session"
+	default 10
+	range 1 255
+
+config APP_MQTT_RX_BUF_SIZE
+	int "MQTT client receive buffer size"
+	default 1024
+	range 256 8192
+
+config APP_MQTT_TX_BUF_SIZE
+	int "MQTT client transmit buffer size"
+	default 1024
+	range 256 8192
+
+config APP_MQTT_PAYLOAD_BUF_SIZE
+	int "MQTT payload scratch buffer size"
+	default 256
+	range 128 2048
+
+if APP_MQTT_USE_TLS
+
+config APP_MQTT_TLS_VERIFY_PEER
+	bool "Require broker certificate verification"
+	default y
+
+config APP_MQTT_TLS_MUTUAL_AUTH
+	bool "Enable mutual TLS authentication"
+	default n
+
+config APP_MQTT_TLS_CA_SEC_TAG
+	int "TLS security tag for broker CA certificate"
+	default 1
+
+config APP_MQTT_TLS_ID_SEC_TAG
+	int "TLS security tag for client certificate and private key"
+	default 2
+
+endif
+
+config APP_MODEM_SOFT_RESET_ON_RECOVERY
+	bool "Allow AT+CFUN=1,1 as last-resort modem recovery"
+	default y
+
+config APP_MODEM_SOFT_RESET_THRESHOLD
+	int "Consecutive failure threshold before soft reset"
+	depends on APP_MODEM_SOFT_RESET_ON_RECOVERY
+	default 3
+	range 1 255
+
+endmenu

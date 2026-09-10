@@ -1,0 +1,16 @@
+identifier: armfly_stm32_v6
+name: ARMFLY STM32-V6 (STM32F429BIT6)
+type: mcu
+arch: arm
+toolchain:
+  - zephyr
+  - gnuarmemb
+  - xtools
+ram: 192
+flash: 2048
+supported:
+  - gpio
+  - serial
+  - i2c
+  - spi
+vendor: armfly

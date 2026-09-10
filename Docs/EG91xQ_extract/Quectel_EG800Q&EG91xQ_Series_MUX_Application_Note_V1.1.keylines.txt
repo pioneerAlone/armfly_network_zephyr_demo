@@ -1,0 +1,143 @@
+[p001] MUX Application Note
+[p002] EG800Q&EG91xQ_Series_MUX_Application_Note 1 / 32
+[p003] EG800Q&EG91xQ_Series_MUX_Application_Note 2 / 32
+[p004] EG800Q&EG91xQ_Series_MUX_Application_Note 3 / 32
+[p005] EG800Q&EG91xQ_Series_MUX_Application_Note 4 / 32
+[p005] 3 MUX AT Command ............................................................................................................................ 10
+[p005] 3.3. AT+CMUX Multiplexing Mode ............................................................................................... 11
+[p005] 4 MUX Protocol ..................................................................................................................................... 14
+[p005] 4.1.2.1. DLCI ................................................................................................................... 14
+[p005] 4.3. MUX Control Channel .............................................................................................................. 18
+[p005] 4.3.2.1. MUX Close-Down (CLD) .................................................................................... 20
+[p006] EG800Q&EG91xQ_Series_MUX_Application_Note 5 / 32
+[p006] 5.5. MUX Close-Down ..................................................................................................................... 30
+[p007] EG800Q&EG91xQ_Series_MUX_Application_Note 6 / 32
+[p007] Table 2: MUX Frame Structure .................................................................................................................. 14
+[p007] Table 10: MUX Close-Down Command – Type Field Format ................................................................... 20
+[p008] EG800Q&EG91xQ_Series_MUX_Application_Note 7 / 32
+[p008] Figure 1: MUX Architecture .......................................................................................................................... 9
+[p009] EG800Q&EG91xQ_Series_MUX_Application_Note 8 / 32
+[p009] The document outlines Quectel MUX (multiplexer) protocol between UE and TE and provides examples
+[p009] of how to use the MUX function on Quectel LTE Standard EG800Q series and EG91xQ family (EG915Q
+[p010] EG800Q&EG91xQ_Series_MUX_Application_Note 9 / 32
+[p010] The MUX protocol provides mechanisms for transmitting data streams between TE and UE over a single
+[p010] physical channels for the application. Each virtual channel supports functionalities such as SMS, PPP
+[p010] four streams by the MUX protocol stack and transmitted to the application. In addition to the information
+[p010] MUX Driver
+[p010] MUX Driver
+[p010] MUX Driver
+[p010] DS MUX Task
+[p010] Figure 1: MUX Architecture
+[p011] EG800Q&EG91xQ_Series_MUX_Application_Note 10 / 32
+[p011] 3 MUX AT Command
+[p012] EG800Q&EG91xQ_Series_MUX_Application_Note 11 / 32
+[p012] 3.3. AT+CMUX Multiplexing Mode
+[p012] This command enables the MUX protocol control channel and sets parameters for the control channel.
+[p012] AT+CMUX Multiplexing Mode
+[p012] AT+CMUX=?
+[p012] +CMUX: ( list of supported <transparency>s),(list of
+[p012] AT+CMUX?
+[p012] +CMUX: < transparency>[,<subset>[,<port_speed>[,<N
+[p012] AT+CMUX=<transparency>[,<subset>[
+[p013] EG800Q&EG91xQ_Series_MUX_Application_Note 12 / 32
+[p013] AT+CMUX=0
+[p013] AT+CMUX?
+[p013] +CMUX: 0,0,5,127,10,3,30,10,2
+[p013] <transparency> Integer type. MUX transparency mechanism.
+[p013] <subset> Integer type. Defines how to establish MUX control channel. After MUX control
+[p013] <T2> Integer type. Response timer for the MUX control channels. Range: 2–255. Default
+[p014] EG800Q&EG91xQ_Series_MUX_Application_Note 13 / 32
+[p014] AT+CMUX can only be executed on UART1 since both module series only support MUX function on
+[p015] EG800Q&EG91xQ_Series_MUX_Application_Note 14 / 32
+[p015] 4 MUX Protocol
+[p015] This chapter outlines the technical details of the MUX protocol.
+[p015] Table 2: MUX Frame Structure
+[p015] The address field consists of a single octet. It contains the DLCI (Data Link Connection Identifier), the C/R
+[p015] 4.1.2.1. DLCI
+[p015] The DLCI identifies the virtual channel between TE and UE. Multiple DLCIs are supported but the number
+[p015] is implementation-specific. The DLCIs are dynamically assigned.
+[p015] EA C/R DLCI
+[p016] EG800Q&EG91xQ_Series_MUX_Application_Note 15 / 32
+[p017] EG800Q&EG91xQ_Series_MUX_Application_Note 16 / 32
+[p017] ⚫ When DCE receives a message frame whose P/F is set to 1 from DLCI 0, DCE will give priority to
+[p017] ⚫ When DCE sends UIH frame via a DLC other than DLCI 0, P/F is set to 0.
+[p018] EG800Q&EG91xQ_Series_MUX_Application_Note 17 / 32
+[p018] the contents transmitted to the correct DLCI is protected rather than the information.
+[p018] MUX protocol
+[p018] SABM (Set up DLCI 1)
+[p018] DISC (Close DLCI 1)
+[p019] EG800Q&EG91xQ_Series_MUX_Application_Note 18 / 32
+[p019] 4.3. MUX Control Channel
+[p019] At the initiation of communication between the TE and UE, a control channel is set up with DLCI 0. Control
+[p019] channel is the first channel established at the initiation of the MUX between the TE and UE and it has the
+[p019] DLCI value 0. This channel is used to convey information between the two MUXes.
+[p019] MUX control channel is the basic channel used to establish a DLC, launch power saving, wake up from
+[p020] EG800Q&EG91xQ_Series_MUX_Application_Note 19 / 32
+[p021] EG800Q&EG91xQ_Series_MUX_Application_Note 20 / 32
+[p021] 4.3.2.1. MUX Close-Down (CLD)
+[p021] MUX close-down command is used to reset the link to normal AT command mode without multiplexing.
+[p021] The MUX close-down command uses the following type field octet:
+[p021] Table 10: MUX Close-Down Command – Type Field Format
+[p021] transmit frames except via the control channel (DLCI = 0).
+[p022] EG800Q&EG91xQ_Series_MUX_Application_Note 21 / 32
+[p022] Command Length DLCI V.24 Signals Interrupt Signals
+[p023] EG800Q&EG91xQ_Series_MUX_Application_Note 22 / 32
+[p023] The DLCI field identifies the specific DLC to which the command applies. Bit 2 is always set to 1 and the
+[p023] EA 1 DLCI
+[p023] The DLCI field is followed by the control signal field that contains a representation of the signal state in the
+[p024] EG800Q&EG91xQ_Series_MUX_Application_Note 23 / 32
+[p025] EG800Q&EG91xQ_Series_MUX_Application_Note 24 / 32
+[p025] P-bit set to 1. The address field of this frame contains the DLCI value of the desired connection. If the
+[p026] EG800Q&EG91xQ_Series_MUX_Application_Note 25 / 32
+[p026] The maximum length of the information field in UIH frames is <N1> in AT+CMUX.
+[p026] TE sends FCoff command to UE when it refuses to accept anything except the control messages on DLCI
+[p027] EG800Q&EG91xQ_Series_MUX_Application_Note 26 / 32
+[p027] This sample is a SABM frame to open DLCI 0.
+[p027] Header DLCI 0 SABM Frame 0, No Information Field Tail
+[p027] Header DLCI 1 UIH Frame 4 AT command
+[p027] Header DLCI 0 UIH Frame 5 MSC Message.
+[p028] EG800Q&EG91xQ_Series_MUX_Application_Note 27 / 32
+[p028] Step 1: Launch MUX
+[p028] Step 2: Establish DLCI 0
+[p028] Step 3: Establish DLCI 1–4
+[p028] TE launches UE MUX
+[p028] AT+CMUX=0<CR>
+[p028] AT+CMUX=0<CR>
+[p028] channel DLCI 0 by sending a SABM
+[p028] create DLCI 0
+[p028] TE requests to establish DLCI 1 by
+[p028] create DLCI 1
+[p028] TE requests to establish DLCI 1 by
+[p028] create DLCI 1
+[p029] EG800Q&EG91xQ_Series_MUX_Application_Note 28 / 32
+[p029] TE requests to establish DLCI 2 by
+[p029] create DLCI 2
+[p029] 4 DLCI 3 and DLCI 4 are established in
+[p029] the same way as DLCI 1 and DLCI 2.
+[p029] string "ATI<CR>" on DLCI 1 TE → UE F9 05 EF 09 41 54 49 0D 58 F9 UIH frame
+[p029] UE responds on DLCI 1 TE ← UE
+[p030] EG800Q&EG91xQ_Series_MUX_Application_Note 29 / 32
+[p030] string "AT<CR>" on DLCI 2 TE → UE F9 09 EF 07 41 54 0D 35 F9 UIH frame
+[p030] UE responds on DLCI 2 TE ← UE
+[p030] Frame transmission on DLCI
+[p030] 3 and DLCI 4 is the same as
+[p030] to 1 on control channel DLCI 0, to indicate
+[p030] refusal to accept anything on DLCI 1.
+[p030] 0 on control channel DLCI 0, to indicate
+[p030] 1 on control channel DLCI 0, to indicate
+[p030] refusal to accept anything on DLCI 1.
+[p030] TE sends FCoff message on DLCI 0 , to
+[p030] DLCs except DLCI 0.
+[p030] 6 TE sends FCon message through DLCI 0,
+[p031] EG800Q&EG91xQ_Series_MUX_Application_Note 30 / 32
+[p031] 5.5. MUX Close-Down
+[p031] down DLCI 1 TE → UE F9 07 53 01 3F F9
+[p031] down DLCI 2 TE → UE F9 0B 53 01 B8 F9
+[p031] down DLCI 3 TE → UE F9 0F 53 01 7A F9
+[p031] down DLCI 4 TE → UE F9 13 53 01 77 F9
+[p031] closing down the MUX on DLCI 0 TE → UE F9 03 EF 05 C3 01
+[p031] 6 Now, the MUX is closed down.
+[p032] EG800Q&EG91xQ_Series_MUX_Application_Note 31 / 32
+[p032] DLCI Data Link Connection Identifier
+[p033] EG800Q&EG91xQ_Series_MUX_Application_Note 32 / 32
+[p033] MUX Multiplexer

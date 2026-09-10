@@ -1,0 +1,115 @@
+[p001] PPP Application Note
+[p002] EG800Q&EG91xQ_Series_PPP_Application_Note 1 / 28
+[p003] EG800Q&EG91xQ_Series_PPP_Application_Note 2 / 28
+[p004] EG800Q&EG91xQ_Series_PPP_Application_Note 3 / 28
+[p005] EG800Q&EG91xQ_Series_PPP_Application_Note 4 / 28
+[p005] 2 PPP Application Mode ......................................................................................................................... 8
+[p005] 3 PPP Setting ........................................................................................................................................... 9
+[p005] 3.1. General Procedures for PPP Setting .............................................................................................. 9
+[p005] 3.2. Recommended Procedures for PPP Setting ................................................................................ 10
+[p005] 4 PPP Connection Modes ..................................................................................................................... 12
+[p005] 4.1.1.2. Use Sequence +++ to Switch from Data Mode to Command Mode ...................... 12
+[p005] 5 PPP Connection Termination ........................................................................................................... 15
+[p005] 6 PPP Dial-up Operations ..................................................................................................................... 16
+[p005] 6.2. PPP Dial-up in Windows 10 .......................................................................................................... 16
+[p006] EG800Q&EG91xQ_Series_PPP_Application_Note 5 / 28
+[p007] EG800Q&EG91xQ_Series_PPP_Application_Note 6 / 28
+[p007] Figure 1: PPP Application Mode .................................................................................................................. 8
+[p007] Figure 2: General Procedures for PPP Setting ............................................................................................ 9
+[p007] Figure 3: Flowchart of Recommended Procedures for PPP Setting ......................................................... 10
+[p008] EG800Q&EG91xQ_Series_PPP_Application_Note 7 / 28
+[p008] This document briefly introduces the PPP functions of Quectel EG800Q series and EG91xQ family
+[p008] (EG915Q series and EG916Q -GL) modules, including PPP application modes, setting procedures,
+[p009] EG800Q&EG91xQ_Series_PPP_Application_Note 8 / 28
+[p009] 2 PPP Application Mode
+[p009] The usage of PPP (Point -to-Point Protocol) is illustrated in the following figure. Use UART port or USB
+[p009] port for PPP connection. The module provides a PPP server for application, and the application provides
+[p009] a PPP client for the module. Meanwhile, the application must provide protocols such as TCP/IP, HTTP(S),
+[p009] etc. When PPP connection is established , the IP p acket data stream from the application will be
+[p009] Most standard operating systems (e.g. Windows, Unix/Linux) include the PPP protocol stack. For
+[p009] operating systems that have no available applications for PPP co nnection, it is necessary to develop
+[p009] PPP
+[p009] PPP
+[p009] Figure 1: PPP Application Mode
+[p010] EG800Q&EG91xQ_Series_PPP_Application_Note 9 / 28
+[p010] 3 PPP Setting
+[p010] 3.1. General Procedures for PPP Setting
+[p010] After the module registers on GPRS network, it is necessary to set the APN for PPP by AT+CGDCONT
+[p010] and to start PPP by ATD*99#. After executing ATD*99#, the module will enter the PPP frame interaction
+[p010] process, which is based on standard PPP protocol. The module data packet interaction description i s
+[p010] shown in the figure below. For more details about standard PPP, see RFC 1661.
+[p010] Figure 2: General Procedures for PPP Setting
+[p011] EG800Q&EG91xQ_Series_PPP_Application_Note 10 / 28
+[p011] 3.2. Recommended Procedures for PPP Setting
+[p011] 2. Start PPP dialing by ATD*99#
+[p011] PPP
+[p011] Exit from the PPP dialing if (U)SIM
+[p011] Interaction by +++ .
+[p011] CARRIER when PPP connection is
+[p011] LCP Negotiation :
+[p011] 3. Terminate PPP connection if IPCP
+[p011] completed in 90 s, and then retry PPP
+[p011] 1. Check whether the PPP Terminate -
+[p011] PPP Terminate -
+[p011] LCP negotiation
+[p011] Exit from the PPP dialing if
+[p011] Figure 3: Flowchart of Recommended Procedures for PPP Setting
+[p012] EG800Q&EG91xQ_Series_PPP_Application_Note 11 / 28
+[p012] AT+IPR=xxx;&W. Before executing ATD*99# to set PPP, you must check the status of the (U)SIM card
+[p012] 4. If the MCU fails to transmit data to network after establishing the PPP connection, please check the
+[p012] PPP configuration and network status and restart the module.
+[p013] EG800Q&EG91xQ_Series_PPP_Application_Note 12 / 28
+[p013] 4 PPP Connection Modes
+[p013] The two ports are in command mode before PPP is set, and the module can execute AT commands in this
+[p013] mode. When PPP negotiation is started, the two ports enter data mode, and remain in the mode when the
+[p013] PPP connection is set. If the PPP connection is not successfully established, the two ports will be in the
+[p013] When the PPP connection has been established and USB/UART port is i n data mode, change the DTR
+[p013] 4.1.1.2. Use Sequence +++ to Switch from Data Mode to Command Mode
+[p013] After the PPP connection is successfully established, use +++ to switch the USB/UART port from data
+[p013] mode to command mode. To prevent the +++ escape sequence from being misinterpreted as data, the
+[p013] 1) Do not input any characters within 1 s or longer before inputting +++.
+[p013] 2) Input +++ within 1 s, and no other characters can be inputted during this period.
+[p013] 3) Do not input any characters within 1 s after inputting +++.
+[p014] EG800Q&EG91xQ_Series_PPP_Application_Note 13 / 28
+[p014] When +++ is received, the USB/UART port will switch from data mode to command mode, and the
+[p014] Please perform the above operations after completing the PPP negotiation, otherwise the above
+[p014] completing the PPP negotiation, when the USB/UART port switches to the command mode, the input
+[p014] data will be treated as AT command, and the module maintains the PPP connection.
+[p014] To switch USB/UART port from command mode to data mode when PPP connection maintains, you can
+[p014] //When PPP connection maintains, USB/UART port is in command mode.
+[p014] port will be treated as PPP frames.
+[p014] The URC for short messages in data mode will not be reported to the PPP d ial-up port during PPP
+[p014] to the PPP dial-up port if there are still incoming calls or text messages.
+[p014] The pin will remain at low level when there is data carrier or PPP negotiation begins, otherwise it wi ll
+[p015] EG800Q&EG91xQ_Series_PPP_Application_Note 14 / 28
+[p015] When switching module’s USB/UART port from data mode to command mode (by using +++), the DCD
+[p016] EG800Q&EG91xQ_Series_PPP_Application_Note 15 / 28
+[p016] 5 PPP Connection Termination
+[p016] There are two methods to terminate the PPP dial-up connection:
+[p016] 1. Terminate the PPP connection through the LCP Terminate-Request message, and this method is
+[p016] 2. TA can also terminate the PPP connection by changing the DTR level. Set the DTR function by
+[p016] terminated. After the PPP connection is completely terminated, the USB/UART port will enter the
+[p016] //USB/UART port is still in command mode before PPP connection is established.
+[p016] 1. PPP connection termination procedures must be performed in data mode.
+[p016] 2. PPP connection termination procedures can be performed a t any time during the PPP setting or
+[p017] EG800Q&EG91xQ_Series_PPP_Application_Note 16 / 28
+[p017] 6 PPP Dial-up Operations
+[p017] This chapter introduces how to establish PPP dial-up connection in Windows 10. For detailed operations
+[p017] It is necessary to finish the following steps before establishing a PPP dial-up connection in Windows.
+[p017] 6.2. PPP Dial-up in Windows 10
+[p018] EG800Q&EG91xQ_Series_PPP_Application_Note 17 / 28
+[p019] EG800Q&EG91xQ_Series_PPP_Application_Note 18 / 28
+[p020] EG800Q&EG91xQ_Series_PPP_Application_Note 19 / 28
+[p021] EG800Q&EG91xQ_Series_PPP_Application_Note 20 / 28
+[p022] EG800Q&EG91xQ_Series_PPP_Application_Note 21 / 28
+[p023] EG800Q&EG91xQ_Series_PPP_Application_Note 22 / 28
+[p023] In the example above, the settings predefine a PDP context where CID=1, PDP type=IP and
+[p024] EG800Q&EG91xQ_Series_PPP_Application_Note 23 / 28
+[p025] EG800Q&EG91xQ_Series_PPP_Application_Note 24 / 28
+[p026] EG800Q&EG91xQ_Series_PPP_Application_Note 25 / 28
+[p027] EG800Q&EG91xQ_Series_PPP_Application_Note 26 / 28
+[p028] EG800Q&EG91xQ_Series_PPP_Application_Note 27 / 28
+[p028] LCP Link Control Protocol
+[p029] EG800Q&EG91xQ_Series_PPP_Application_Note 28 / 28
+[p029] PDP Packet Data Protocol
+[p029] PPP Point-to-Point Protocol

@@ -1,0 +1,171 @@
+[p004] 5. Added AT+QPPPDROOP (Chapter 2.26).
+[p004] AT+QCFG="cmux/urcport"
+[p004] AT+QCFG="cmux/baudratework"
+[p005] AT+QCFG="ppp/termframe"
+[p006] 2.26. AT+QPPPDROOP Terminate PPP Connection .................................................................... 33
+[p007] 4.4.5. AT+QCFG="cmux/urcport" Set Output Port of CMUX URCs ..................................... 50
+[p007] 4.4.6. AT+QCFG="cmux/baudratework" Set Baud Rate in CMUX Mode ............................. 50
+[p007] 4.4.21. AT+QCFG="ppp/termframe" Enable/Disable PPP TERM Frame Sending ................ 64
+[p007] 4.4.26. AT+QCFG="fota/cid" Set PDP Context ID for FOTA Download ................................. 70
+[p008] 7.1. ATD PPP Dial ...................................................................................................................... 109
+[p008] 7.2. +++ Switch from Data Mode to Command Modeg ............................................................. 110
+[p009] 9.2. AT+CGDCONT Define PDP Context .................................................................................. 145
+[p009] 9.3. AT+CGACT Activate or Deactivate PDP Context ............................................................... 147
+[p009] 9.5. AT+CGPADDR Show PDP Address ................................................................................... 149
+[p009] 9.12. AT+CGCONTRDP PDP Context Read Dynamic Parameters ............................................ 160
+[p009] 9.13. AT+QNETDEVCTL Make/Disconnect PDP Call ................................................................. 162
+[p034] 2.26. AT+QPPPDROOP Terminate PPP Connection
+[p034] This command terminates the PPP connection.
+[p034] Step1: Check if PPP link exists. Run step2 if exists.
+[p034] Step2: Hung up PPP connection and then output NO CARRIER to the port that’s used for dialing up.
+[p034] 2. if <op> is 1, TERM REQ frame will be sent to peer only when PPP connection exists and dial-up port
+[p034] AT+QPPPDROOP Terminate PPP Connection
+[p034] AT+QPPPDROP=?
+[p034] + QPPPDROP : (list of supported <op>s)
+[p034] AT+QPPPDROP[=<op>]
+[p034] <op> Integer Type. The operation about dropping PPP connection.
+[p034] 0 Hung up PPP connection without sending TERM REQ frame to peer.
+[p034] 1 Hung up PPP connection and automatically send TERM REQ frame to peer.
+[p034] 2 Hung up PPP connection with sending TERM REQ frame to peer.
+[p035] AT+QPPPDROP //send command from USB_AT port
+[p035] NO CARRIER //PPP has been terminated and output this URC from dial-up port. If ATV0 is set,
+[p042] ⚫ Failure to activate or deactivate a PDP context
+[p046] +QCFG: "cmux/urcport",(list of supported <URC_port>s)
+[p046] +QCFG: "cmux/baudratework",( list of supported <enabl
+[p047] +QCFG: "ppp/termframe",(list of supported <flag>s)
+[p051] 4.4.5. AT+QCFG="cmux/urcport" Set Output Port of CMUX URCs
+[p051] This command sets the output port of CMUX URCs or queries the current setting.
+[p051] 4.4.6. AT+QCFG="cmux/baudratework" Set Baud Rate in CMUX Mode
+[p051] This Command sets the baud rate in CMUX mode.
+[p051] AT+QCFG="cmux/urcport" Set Output Port of CMUX URCs
+[p051] AT+QCFG="cmux/urcport"[,<URC_p
+[p051] +QCFG: "cmux/urcport",<URC_port>
+[p051] CMUX URCs:
+[p051] <URC_port> Integer type. Output port of CMUX URCs.
+[p052] AT+QCFG="cmux/baudratework" Set Baud Rate Configuration in CMUX Mode
+[p052] AT+QCFG="cmux/baudratework"[,<e
+[p052] +QCFG: "cmux/baudratework"[,<enable>]
+[p052] CMUX mode:
+[p052] <enable> Integer type. Whether it is allowed to set the CMUX baud rate.
+[p065] 4.4.21. AT+QCFG="ppp/termframe" Enable/Disable PPP TERM Frame Sending
+[p065] This command enables/disables the PPP TERM frame sending when PPP connection is terminated by
+[p066] If AT+QPPPDROP hangs up the PPP connection with a TERM frame, module sends the TERM frame
+[p066] AT+QCFG="ppp/termframe",1 //Enable PPP TERM frame sending:
+[p066] AT+QCFG="ppp/termframe" //Query the current setting.
+[p066] +QCFG: "ppp/termframe",1
+[p066] AT+QCFG="ppp/termframe" Enable/Disable PPP TERM Frame Sending
+[p066] AT+QCFG="ppp/termframe"[,<flag>]
+[p066] +QCFG: "ppp/termframe",<flag>
+[p066] If the optional parameter is specified, enable/disable PPP
+[p066] <flag> Integer type. Enable/disable TERM frame sending when PPP connection is terminated by the
+[p071] 4.4.26. AT+QCFG="fota/cid" Set PDP Context ID for FOTA Download
+[p071] This command sets the PDP context ID for FOTA download.
+[p071] AT+QCFG="fota/cid" Set PDP Context ID for FOTA Download
+[p071] If the optional parameter is specified, set PDP context ID for
+[p110] 7.1. ATD PPP Dial
+[p110] This command sets up a PPP dial. Supplementary services can also be controlled with this command.
+[p110] This command can only be used in PPP.
+[p110] ATD*99# //Start PPP dialing.
+[p110] ATD PPP Dial
+[p111] 7.2. +++ Switch from Data Mode to Command Modeg
+[p111] This command is only available when TA is in data mode. The "+++" character sequence causes the TA to
+[p111] 1. To prevent +++ escape sequence from being misinterpreted as data, the following sequence
+[p111] ⚫ Do not input any character for at least 1s before and after inputting +++.
+[p111] ⚫ Input +++ within 1s, and wait until OK is returned.
+[p111] +++ Switch from Data Mode to Command Mode
+[p111] +++
+[p146] 9.2. AT+CGDCONT Define PDP Context
+[p146] This command specifies PDP context parameters for a specific context <cid>. A special form of the Write
+[p146] This Read Command returns the current settings for each defined PDP context.
+[p146] AT+CGDCONT Define PDP Context
+[p146] +CGDCONT: (list of supported <cid>s),<PDP_type>, <A
+[p146] PN>,<PDP_addr>,(list of supported <data_comp>s),(list o
+[p146] +CGDCONT: <cid>,<PDP_type>,<APN>,<PDP_addr>,
+[p146] AT+CGDCONT=<cid>[,<PDP_type>[,<
+[p146] APN>[,<PDP_addr>[,<data_comp>[,<
+[p147] <cid> Integer type. PDP context identifier. A numeric parameter which specifies a particular
+[p147] PDP context definition. The parameter is local to the TE -MT interface and is used in
+[p147] other PDP context-related commands. The range of permitted values (minimum value
+[p147] <PDP_type> String type. Packet data protocol type, a string parameter which specifies the type of
+[p147] "PPP"
+[p147] <PDP_addr> String type. Identifies the MT in the address space applicable to the PDP. If the value is
+[p147] null or omitted, then a value may be provided by the TE during the PDP startup
+[p147] <data_comp> Integer type. Controls PDP data compression (applicable for SNDCP only) (refer to
+[p147] <head_comp> Integer type. Controls PDP header compression (refer to 3GPP TS 44.065 and 3GPP
+[p147] <request_type> Integer type. Indicate the type of PDP context activation request for the PDP
+[p147] 0 PDP context is for new PDP context establishment or for handover from
+[p148] 9.3. AT+CGACT Activate or Deactivate PDP Context
+[p148] This Write Command activates or deactivates the specified PDP context(s). After the command has
+[p148] completed, the MT remains in V.250 command state. If any PDP context is already in the requested state,
+[p148] a non-3GPP access network (how the MT decides whether the PDP
+[p148] context is for new PDP context establishment or for handover is
+[p148] 1 PDP context is for emergency bearer services
+[p148] AT+CGACT Activate or Deactivate PDP Context
+[p149] AT+CGDCONT=1,"IP","UNINET" //Define PDP context.
+[p149] AT+CGACT=1,1 //Activated PDP.
+[p149] AT+CGACT=0,1 //Deactivated the PDP.
+[p149] communication between the TE and the network using one or more packet domain PDP types. This may
+[p149] include performing a PS attach and one or more PDP context activations. Any command following the
+[p149] <state> Integer type. Indicates the state of PDP context activation.
+[p149] <cid> Integer type. Specifies a particular PDP context definition (see AT+CGDCONT).
+[p150] 9.5. AT+CGPADDR Show PDP Address
+[p150] This Write Command returns a list of PDP addresses for the specified context identifiers. If no <cid> is
+[p150] PPP Point to Point protocol for a PDP such as IP
+[p150] <cid> Integer type. Specifies a particular PDP context definition (see AT+CGDCONT).
+[p150] AT+CGPADDR Show PDP Address
+[p150] +CGPADDR: <cid>,<PDP_addr>
+[p150] [+CGPADDR: <cid>,<PDP_addr>
+[p151] AT+CGDCONT=1,"IP","UNINET" //Define PDP context.
+[p151] AT+CGACT=1,1 //Activated PDP.
+[p151] AT+CGPADDR=1 //Show PDP address.
+[p151] <cid> Integer type. Specifies a particular PDP context definition (see AT+CGDCONT).
+[p151] <PDP_addr> String type. Identifies the MT in the address space applicable to the PDP. The address
+[p151] during the last PDP context activation that used the context definition referred to by
+[p151] <cid>. <PDP_address> is omitted if none is available.
+[p154] 1. +CGEV: REJECT <PDP_type>, <PDP_addr> : A network request for PDP context activation
+[p154] 2. +CGEV: NW REACT <PDP_type>, <PDP_addr>,[<cid>]: The network has requested a context
+[p154] 3. +CGEV: NW DEACT <PDP_type>, <PDP_addr>,[<cid>] : The network has forced a context
+[p154] 4. +CGEV: ME DEACT <PDP_type>, <PDP_addr>,[<cid>] : The mobile equipment has forced a
+[p154] or a Primary PDP context in GSM/UMTS.
+[p154] LTE or a Primary PDP context in GSM/UMTS.
+[p161] 9.12. AT+CGCONTRDP PDP Context Read Dynamic Parameters
+[p161] <cid> Integer type. Specifies a particular non secondary PDP context
+[p161] other PDP context-related command.
+[p161] AT+CGCONTRDP PDP Context Read Dynamic Parameters
+[p162] Integer type. Shows whether the PDP context is for IM CN
+[p162] 0 PDP context is not for IM CN subsystem-related signalling only
+[p162] 1 PDP context is for IM CN subsystem-related signalling only
+[p162] Integer type. Indicates that the PDP context provides connectivity using
+[p162] 0 Indication not received that the PDP context provides connectivity
+[p162] 1 Indication received that the PDP context provides connectivity using
+[p163] 9.13. AT+QNETDEVCTL Make/Disconnect PDP Call
+[p163] This command makes or disconnects a PDP call.
+[p163] AT+QNETDEVCTL Make/Disconnect PDP Call
+[p163] Make a call through a specified PDP context
+[p163] <contextID> Integer type. PDP context ID. Range: 1–15.
+[p173] AT+QIACT Activates a PDP context
+[p173] AT+QIDEACT Deactivates a PDP context
+[p179] PDP Packet Data Protocol
+[p179] PPP Point to Point Protocol
+[p189] 23 +CGEV: REJECT <PDP_typ
+[p189] e>, <PDP_addr>
+[p189] A network request for PDP activation,
+[p189] 24 +CGEV: NW REACT <PDP_t
+[p189] ype>, <PDP_addr>, [<cid>]
+[p189] The network request PDP
+[p189] 25 +CGEV: NW DEACT <PDP_t
+[p189] ype>, <PDP_addr>, [<cid>]
+[p189] 26 +CGEV: ME DEACT <PDP_t
+[p189] ype>, <PDP_addr>, [<cid>]
+[p200] 40 No PDP context activated
+[p202] 7 PDP establish timeout
+[p202] 8 PDP activate timeout
+[p202] 9 PDP modify timeout
+[p202] 10 PDP inactive max timeout
+[p202] 11 PDP lower layer error
+[p202] 12 PDP duplicate
+[p202] 14 PDP unknown reason
+[p202] 28 Unknown PDP address or PDP type
+[p203] 43 Unknown PDP context
+[p203] 44 PDP context without TFT already activated
+[p204] 28 Unknown PDP address or PDP type

@@ -1,0 +1,23 @@
+﻿/*
+ * Enable modem PWRKEY host control for EG91xQ recovery path.
+ *
+ * Usage:
+ * 1) Wire STM32 GPIO to EG91xQ PWRKEY through proper level/drive circuitry.
+ * 2) Replace gpiod 14 with your actual pin.
+ * 3) Build with this overlay enabled.
+ */
+
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+&modem {
+	/* TODO: replace gpiod 14 with the pin actually wired to EG91xQ PWRKEY */
+	/*
+	 * EG91xQ PWRKEY typically sits on a low-voltage domain.
+	 * Use open-drain so MCU only pulls low and never drives a 3.3V high.
+	 */
+	mdm-power-gpios = <&gpiod 14 (GPIO_OPEN_DRAIN | GPIO_ACTIVE_LOW)>;
+
+	/* Keep modem marked as autostarting; driver can still pulse PWRKEY for recovery. */
+	autostarts;
+	status = "okay";
+};

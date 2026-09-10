@@ -1,0 +1,10 @@
+﻿/*
+ * Switch modem node to BG95 (uses Zephyr BG9x cellular driver).
+ * Keep UART-only wiring; no dedicated PWRKEY control pin in this overlay.
+ */
+
+&modem {
+	compatible = "quectel,bg95";
+	autostarts;
+	status = "okay";
+};

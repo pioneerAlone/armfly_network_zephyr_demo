@@ -1,0 +1,11 @@
+# SPDX-License-Identifier: Apache-2.0
+
+if BOARD_ARMFLY_STM32_V6
+
+config INPUT
+default y if DISPLAY
+
+config MEMC
+default y if DISPLAY
+
+endif # BOARD_ARMFLY_STM32_V6
